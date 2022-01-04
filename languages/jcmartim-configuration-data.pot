@@ -12,7 +12,7 @@ msgstr ""
 "<translations@example."
 "com>\n"
 "POT-Creation-Date: "
-"2021-12-19 15:18-0300\n"
+"2022-01-04 00:20-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -51,50 +51,69 @@ msgstr ""
 "X-Poedit-"
 "SearchPath-0: .\n"
 
-#: class.jcmartim-configuration-data-settings.php:40
+#: class.jcmartim-configuration-data-settings.php:48
 msgid ""
 "Enter the business data"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:47
+#: class.jcmartim-configuration-data-settings.php:55
 msgid ""
 "Enter your social media "
 "links"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:57
+#: class.jcmartim-configuration-data-settings.php:62
+msgid ""
+"Links and external keys"
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:72
 msgid "Company Name"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:68
+#: class.jcmartim-configuration-data-settings.php:83
 msgid "CNPJ"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:79
+#: class.jcmartim-configuration-data-settings.php:94
 msgid "Address"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:90
+#: class.jcmartim-configuration-data-settings.php:105
 msgid "Telephone"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:101
+#: class.jcmartim-configuration-data-settings.php:116
 msgid "WhatsApp Number"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:113
+#: class.jcmartim-configuration-data-settings.php:128
 msgid "Facebook page link"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:124
+#: class.jcmartim-configuration-data-settings.php:139
 msgid "Instagram link"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:135
+#: class.jcmartim-configuration-data-settings.php:150
 msgid "Twitter link"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:150
+#: class.jcmartim-configuration-data-settings.php:161
+msgid ""
+"Link to the page of an "
+"external service"
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:172
+msgid "Facebook Pixel ID"
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:183
+msgid "Google Analytics ID"
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:199
 msgid ""
 "How to do? Fill in the "
 "data for each field, "
@@ -111,12 +130,19 @@ msgid ""
 "footer, sidebar, etc."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:163
+#: class.jcmartim-configuration-data-settings.php:205
+msgid ""
+"Enter here with some "
+"external settings like "
+"links and service keys."
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:218
 msgid ""
 "Company / business name"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:170
+#: class.jcmartim-configuration-data-settings.php:225
 msgid ""
 "Short code in the "
 "business name for "
@@ -124,86 +150,105 @@ msgid ""
 "website content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:180
+#: class.jcmartim-configuration-data-settings.php:235
 msgid "00.000.000/0000-00"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:186
+#: class.jcmartim-configuration-data-settings.php:241
 msgid ""
 "CNPJ shortcode for "
 "insertion in the "
 "website's content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:195
+#: class.jcmartim-configuration-data-settings.php:250
 msgid "Complete address"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:202
+#: class.jcmartim-configuration-data-settings.php:257
 msgid ""
 "Adrees shortcode for "
 "insertion in the "
 "website's content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:211
+#: class.jcmartim-configuration-data-settings.php:266
 msgid "(00) 00000-0000"
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:218
+#: class.jcmartim-configuration-data-settings.php:273
 msgid ""
 "Telephone shortcode for "
 "insertion in the "
 "website's content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:234
+#: class.jcmartim-configuration-data-settings.php:289
 msgid ""
 "WhatsApp shortcode for "
 "insertion in the "
 "website's content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:254
+#: class.jcmartim-configuration-data-settings.php:309
 msgid ""
 "Facebook page link "
 "shortcode for insertion "
 "into website content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:270
+#: class.jcmartim-configuration-data-settings.php:325
 msgid ""
 "Instagram link shortcode "
 "for insertion into "
 "website content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:286
+#: class.jcmartim-configuration-data-settings.php:341
 msgid ""
 "Twitter link shortcode "
 "for insertion into "
 "website content."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:307
+#: class.jcmartim-configuration-data-settings.php:360
+msgid ""
+"Enter here with a link "
+"to an external page."
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:375
+msgid ""
+"Paste the Facebook Pixel "
+"ID. E.g.: 463272213166527"
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:390
+msgid ""
+"Paste the Google "
+"Analytics ID. E.g.: G-"
+"XX3ZCML7LK"
+msgstr ""
+
+#: class.jcmartim-configuration-data-settings.php:411
 msgid ""
 "Please! Fill in the "
 "company name field."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:322
+#: class.jcmartim-configuration-data-settings.php:426
 msgid ""
 "Please! Fill in the "
 "company address field."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:334
+#: class.jcmartim-configuration-data-settings.php:438
 msgid ""
 "Please! Fill in the "
 "company phone field."
 msgstr ""
 
-#: class.jcmartim-configuration-data-settings.php:346
+#: class.jcmartim-configuration-data-settings.php:450
 msgid ""
 "Please! Fill in the "
 "company WhatsApp number "
@@ -230,13 +275,18 @@ msgstr ""
 msgid "Social Media"
 msgstr ""
 
-#: views/jcmartim-configuration-data-view.php:34
-#: views/jcmartim-configuration-data-view.php:47
+#: views/jcmartim-configuration-data-view.php:26
+msgid "External"
+msgstr ""
+
+#: views/jcmartim-configuration-data-view.php:40
+#: views/jcmartim-configuration-data-view.php:53
+#: views/jcmartim-configuration-data-view.php:66
 msgid ""
 "Settings saved "
 "successfully!"
 msgstr ""
 
-#: views/jcmartim-configuration-data-view.php:53
+#: views/jcmartim-configuration-data-view.php:72
 msgid "Save Settings"
 msgstr ""

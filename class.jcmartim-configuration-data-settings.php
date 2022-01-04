@@ -5,12 +5,14 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
 
         public static $options_1 = [];
         public static $options_2 = [];
+        public static $options_3 = [];
 
         public function __construct()
         {
             // Nome da chave no banco de dados
             self::$options_1 = get_option('jcmartim_configuration_data_options_1');
             self::$options_2 = get_option('jcmartim_configuration_data_options_2');
+            self::$options_3 = get_option('jcmartim_configuration_data_options_3');
             add_action( 'admin_init', [$this, 'jcmartim_configuration_data_admin_init'] );
         }
 
@@ -31,6 +33,12 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 $args = [$this, 'jcmartim_configuration_data_options_sinitize_2'],    // Callback para fazer as devidas validações dos campos.
             );
 
+            register_setting( //Registra a chave que deve guardar todas as informações no banco de dados.
+                $option_group = 'jcmartim_configuration_data_group_3',                // Grupo ( usado em settings_field na page view )
+                $option_name = 'jcmartim_configuration_data_options_3',               // Nome da chave (mesma da "get_option acima").           
+                $args = [$this, 'jcmartim_configuration_data_options_sinitize_3'],    // Callback para fazer as devidas validações dos campos.
+            );
+
             /**
              * Seções
              */
@@ -47,6 +55,13 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 $title = esc_html__( 'Enter your social media links', 'jcmartim-configuration-data' ),
                 $callback = null,
                 $page = 'jcmartim_configuration_data_page_social_media'
+            );
+            //Terceira Seção
+            add_settings_section(
+                $id = 'jcmartim_configuration_data_external',
+                $title = esc_html__( 'Links and external keys', 'jcmartim-configuration-data' ),
+                $callback = [$this, 'jcmartim_configuration_data_external_calback'],
+                $page = 'jcmartim_configuration_data_page_external'
             );
             /**
              * Campos
@@ -141,18 +156,58 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                     'shortcode' => '[configuration data="twitter"]'
                 ]
             );
+            add_settings_field( //Link externo para outro site
+                $id = 'jcmartim_configuration_data_external_link',
+                $title = esc_html__('Link to the page of an external service', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_external_link_callback'],
+                $page = 'jcmartim_configuration_data_page_external',
+                $section = 'jcmartim_configuration_data_external',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_external_link',
+                    'shortcode' => '[configuration data="external-page-link"]'
+                ]
+            );
+            add_settings_field( //Facebook Pixel 
+                $id = 'jcmartim_configuration_data_pixel',
+                $title = esc_html__('Facebook Pixel ID', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_pixel_callback'],
+                $page = 'jcmartim_configuration_data_page_external',
+                $section = 'jcmartim_configuration_data_external',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_pixel',
+                    'shortcode' => '[configuration data="pixel"]'
+                ]
+            );
+            add_settings_field( //Google Analytics
+                $id = 'jcmartim_configuration_data_analytics',
+                $title = esc_html__('Google Analytics ID', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_analytics_callback'],
+                $page = 'jcmartim_configuration_data_page_external',
+                $section = 'jcmartim_configuration_data_external',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_analytics',
+                    'shortcode' => '[configuration data="analytics"]'
+                ]
+            );
+
 
         }
         //Texto ecplicativo da premeira seção.
         public function jcmartim_configuration_data_business_explanation()
-            {
-               ?>
-               <p style="max-width: 600px;"><?php esc_html_e('How to do? Fill in the data for each field, save them by clicking on the "Save Settings" button. Okay, now copy the shortcodes that are below each corresponding field and paste where you need this information to appear in the website content, such as: website header, footer, sidebar, etc.', 'jcmartim-configuration-data') ?></p>
-               <?php
-            }
+        {
+            ?>
+            <p style="max-width: 600px;"><?php esc_html_e('How to do? Fill in the data for each field, save them by clicking on the "Save Settings" button. Okay, now copy the shortcodes that are below each corresponding field and paste where you need this information to appear in the website content, such as: website header, footer, sidebar, etc.', 'jcmartim-configuration-data') ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_external_calback()
+        {
+            ?>
+            <p style="max-width: 600px;"><?php esc_html_e('Enter here with some external settings like links and service keys.', 'jcmartim-configuration-data') ?></p>
+            <?php
+        }
         /**
          * Conteúdo dos campos.
-         * PRIMEIRA CESSÃO
+         * PRIMEIRA SEÇÃO
          */
         //Nome da Empresa
         public function jcmartim_configuration_data_company_name_callback( $args )
@@ -236,7 +291,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
         }
         /**
          * Conteúdo dos campos.
-         * SEGUNDA CESSÃO
+         * SEGUNDA SESSÃO
          */
         //Facebook
         public function jcmartim_configuration_data_facebook_callback( $args )
@@ -284,6 +339,55 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Twitter link shortcode for insertion into website content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        /**
+         * Terceira seção
+         */
+        //Link para página externa
+        public function jcmartim_configuration_data_external_link_callback($args)
+        {
+            ?>
+            <input
+                type="url"
+                placeholder="https://www.page.com/subpage"
+                name="jcmartim_configuration_data_options_3[jcmartim_configuration_data_external_link]" 
+                id="jcmartim_configuration_data_external_link"
+                value="<?php echo isset(self::$options_3['jcmartim_configuration_data_external_link']) ? esc_attr__(self::$options_3['jcmartim_configuration_data_external_link'], 'jcmartim-configuration-data') : '' ?>"
+                <?php echo empty(self::$options_3['jcmartim_configuration_data_external_link']) ? '' : 'style="border-color:green"'; ?>
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Enter here with a link to an external page.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_pixel_callback($args)
+        {
+            ?>
+            <input
+                type="number"
+                placeholder="ID Pixel"
+                name="jcmartim_configuration_data_options_3[jcmartim_configuration_data_pixel]" 
+                id="jcmartim_configuration_data_pixel"
+                value="<?php echo isset(self::$options_3['jcmartim_configuration_data_pixel']) ? esc_attr__(self::$options_3['jcmartim_configuration_data_pixel'], 'jcmartim-configuration-data') : '' ?>"
+                <?php echo empty(self::$options_3['jcmartim_configuration_data_pixel']) ? '' : 'style="border-color:green"'; ?>
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Paste the Facebook Pixel ID. E.g.: 463272213166527", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_analytics_callback($args)
+        {
+            ?>
+            <input
+                type="text"
+                placeholder="ID Google Analytics"
+                name="jcmartim_configuration_data_options_3[jcmartim_configuration_data_analytics]" 
+                id="jcmartim_configuration_data_analytics"
+                value="<?php echo isset(self::$options_3['jcmartim_configuration_data_analytics']) ? esc_attr__(self::$options_3['jcmartim_configuration_data_analytics'], 'jcmartim-configuration-data') : '' ?>"
+                <?php echo empty(self::$options_3['jcmartim_configuration_data_analytics']) ? '' : 'style="border-color:green"'; ?>
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Paste the Google Analytics ID. E.g.: G-XX3ZCML7LK", "jcmartim-configuration-data") ?></p>
             <?php
         }
 
@@ -363,11 +467,33 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                     case 'jcmartim_configuration_data_facebook':
                         $field_sanitize[$key] = esc_url_raw($value);
                         break;
-                    case 'jcmartim_configuration_data_instagram':
+                    case 'jcmartim_configuration_data_pixel':
                         $field_sanitize[$key] = esc_url_raw($value);
                         break;
                     case 'jcmartim_configuration_data_twitter':
                         $field_sanitize[$key] = esc_url_raw($value);
+                        break;
+                    default :
+                        $field_sanitize[$key] = sanitize_text_field($value);
+                        break;
+                }
+            }
+            return $field_sanitize;
+        }
+        public function jcmartim_configuration_data_options_sinitize_3($fields)
+        {
+            $field_sanitize = [];
+
+            foreach ($fields as $key => $value) {
+                switch ($key) {
+                    case 'jcmartim_configuration_data_external_link':
+                        $field_sanitize[$key] = esc_url_raw($value);
+                        break;
+                    case 'jcmartim_configuration_data_pixel':
+                        $field_sanitize[$key] = sanitize_text_field($value);
+                        break;
+                    case 'jcmartim_configuration_data_analytics':
+                        $field_sanitize[$key] = sanitize_text_field($value);
                         break;
                     default :
                         $field_sanitize[$key] = sanitize_text_field($value);
