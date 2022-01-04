@@ -42,7 +42,7 @@
                     );
                 }
                 settings_errors('jcmartim_configuration_data_options_1');
-            } elseif ($active_tab == 'business-data') {
+            } elseif ($active_tab == 'social-media') {
                 settings_fields('jcmartim_configuration_data_group_2');                     // Adiciona campos hidden e nouce ao formulário.
                 do_settings_sections('jcmartim_configuration_data_page_social_media');      // Conteúdo da segunda seção.
                 //Mensagem de sucesso!
