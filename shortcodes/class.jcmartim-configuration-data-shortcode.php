@@ -17,6 +17,7 @@ if ( ! class_exists( 'JCMartim_Configuration_Data_Shortcode' ) ) {
 
             $data_business      =    get_option('jcmartim_configuration_data_options_1');
             $data_social_media  =    get_option('jcmartim_configuration_data_options_2');
+            $data_external  =    get_option('jcmartim_configuration_data_options_3');
 
             //Passa todos os parametros para minúsculas.
             $atts = array_change_key_case((array) $atts, CASE_LOWER);
@@ -55,6 +56,12 @@ if ( ! class_exists( 'JCMartim_Configuration_Data_Shortcode' ) ) {
                 return $data_social_media['jcmartim_configuration_data_instagram'];
             } elseif ( ! empty( $data ) && $data === 'twitter' ) {
                 return $data_social_media['jcmartim_configuration_data_twitter'];
+            } elseif ( ! empty( $data ) && $data === 'external-page-link' ) {
+                return $data_external['jcmartim_configuration_data_external_link'];
+            } elseif ( ! empty( $data ) && $data === 'pixel' ) {
+                return $data_external['jcmartim_configuration_data_pixel'];
+            } elseif ( ! empty( $data ) && $data === 'analytics' ) {
+                return $data_external['jcmartim_configuration_data_analytics'];
             }
         }
     }
