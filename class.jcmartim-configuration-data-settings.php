@@ -624,6 +624,31 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             }
             return $field_sanitize;
         }
+        public function jcmartim_configuration_data_options_sinitize_4($fields)
+        {
+            $field_sanitize = [];
+
+            foreach ($fields as $key => $value) {
+                switch ($key) {
+                    case 'jcmartim_configuration_data_footer_column_1':
+                        $field_sanitize[$key] = sanitize_textarea_field($value);
+                        break;
+                    case 'jcmartim_configuration_data_footer_column_2':
+                        $field_sanitize[$key] = sanitize_textarea_field($value);
+                        break;
+                    case 'jcmartim_configuration_data_footer_column_3':
+                        $field_sanitize[$key] = sanitize_textarea_field($value);
+                        break;
+                    case 'jcmartim_configuration_data_footer_column_4':
+                        $field_sanitize[$key] = sanitize_textarea_field($value);
+                        break;
+                    default :
+                        $field_sanitize[$key] = sanitize_textarea_field($value);
+                        break;
+                }
+            }
+            return $field_sanitize;
+        }
 
     }
 }
