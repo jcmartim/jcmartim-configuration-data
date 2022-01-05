@@ -17,23 +17,16 @@ if ( ! class_exists( 'JCMartim_Configuration_Data_Shortcode' ) ) {
 
             $data_business      =    get_option('jcmartim_configuration_data_options_1');
             $data_social_media  =    get_option('jcmartim_configuration_data_options_2');
-            $data_external  =    get_option('jcmartim_configuration_data_options_3');
+            $data_external      =    get_option('jcmartim_configuration_data_options_3');
+            $data_footer        =    get_option('jcmartim_configuration_data_options_4');
 
             //Passa todos os parametros para minúsculas.
             $atts = array_change_key_case((array) $atts, CASE_LOWER);
 
             extract( //Extrai para variáveis. Ex.: $id, $ordebay.
                 shortcode_atts(
-                $pairs = [                           //Array com todos os atributos.
+                $pairs = [                  //Array com todos os atributos.
                     'data' => ''
-                    // 'company'       => $data_business['jcmartim_configuration_data_company_name'],
-                    // 'cnpj'          => $data_business['jcmartim_configuration_data_cnpj'],
-                    // 'address'       => $data_business['jcmartim_configuration_data_address'],
-                    // 'tel'           => $data_business['jcmartim_configuration_data_tel'],
-                    // 'whatsapp'      => $data_business['jcmartim_configuration_data_whatsapp'],
-                    // 'facebook'      => $data_social_media['jcmartim_configuration_data_facebook'],
-                    // 'instagram'     => $data_social_media['jcmartim_configuration_data_instagram'],
-                    // 'twitter'       => $data_social_media['jcmartim_configuration_data_twitter'],
                 ], 
                 $atts,                      // Parametro de onde vem os atributos.
                 $shortcode_tag              //O nome do shortcode, fornecido para contexto para habilitar a filtragem.
@@ -62,6 +55,14 @@ if ( ! class_exists( 'JCMartim_Configuration_Data_Shortcode' ) ) {
                 return $data_external['jcmartim_configuration_data_pixel'];
             } elseif ( ! empty( $data ) && $data === 'analytics' ) {
                 return $data_external['jcmartim_configuration_data_analytics'];
+            } elseif ( ! empty( $data ) && $data === 'footer_column_1' ) {
+                return $data_footer['jcmartim_configuration_data_footer_column_1'];
+            } elseif ( ! empty( $data ) && $data === 'footer_column_2' ) {
+                return $data_footer['jcmartim_configuration_data_footer_column_2'];
+            } elseif ( ! empty( $data ) && $data === 'footer_column_3' ) {
+                return $data_footer['jcmartim_configuration_data_footer_column_3'];
+            } elseif ( ! empty( $data ) && $data === 'footer_column_4' ) {
+                return $data_footer['jcmartim_configuration_data_footer_column_4'];
             }
         }
     }

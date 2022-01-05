@@ -6,6 +6,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
         public static $options_1 = [];
         public static $options_2 = [];
         public static $options_3 = [];
+        public static $options_4 = [];
 
         public function __construct()
         {
@@ -13,6 +14,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             self::$options_1 = get_option('jcmartim_configuration_data_options_1');
             self::$options_2 = get_option('jcmartim_configuration_data_options_2');
             self::$options_3 = get_option('jcmartim_configuration_data_options_3');
+            self::$options_4 = get_option('jcmartim_configuration_data_options_4');
             add_action( 'admin_init', [$this, 'jcmartim_configuration_data_admin_init'] );
         }
 
@@ -39,6 +41,12 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 $args = [$this, 'jcmartim_configuration_data_options_sinitize_3'],    // Callback para fazer as devidas validações dos campos.
             );
 
+            register_setting( //Registra a chave que deve guardar todas as informações no banco de dados.
+                $option_group = 'jcmartim_configuration_data_group_4',                // Grupo ( usado em settings_field na page view )
+                $option_name = 'jcmartim_configuration_data_options_4',               // Nome da chave (mesma da "get_option acima").           
+                $args = [$this, 'jcmartim_configuration_data_options_sinitize_4'],    // Callback para fazer as devidas validações dos campos.
+            );
+
             /**
              * Seções
              */
@@ -62,6 +70,13 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 $title = esc_html__( 'Links and external keys', 'jcmartim-configuration-data' ),
                 $callback = [$this, 'jcmartim_configuration_data_external_calback'],
                 $page = 'jcmartim_configuration_data_page_external'
+            );
+            //Quarta Seção
+            add_settings_section(
+                $id = 'jcmartim_configuration_data_footer',
+                $title = esc_html__( 'Footer data', 'jcmartim-configuration-data' ),
+                $callback = [$this, 'jcmartim_configuration_data_footer_calback'],
+                $page = 'jcmartim_configuration_data_page_footer'
             );
             /**
              * Campos
@@ -189,8 +204,50 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                     'shortcode' => '[configuration data="analytics"]'
                 ]
             );
-
-
+            add_settings_field( //Rodapé
+                $id = 'jcmartim_configuration_data_footer_column_1',
+                $title = esc_html__('Column footer 1', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_footer_column_1_callback'],
+                $page = 'jcmartim_configuration_data_page_footer',
+                $section = 'jcmartim_configuration_data_footer',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_footer_column_1',
+                    'shortcode' => '[configuration data="footer_column_1"]'
+                ]
+            );
+            add_settings_field( //Rodapé
+                $id = 'jcmartim_configuration_data_footer_column_2',
+                $title = esc_html__('Column footer 2', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_footer_column_2_callback'],
+                $page = 'jcmartim_configuration_data_page_footer',
+                $section = 'jcmartim_configuration_data_footer',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_footer_column_2',
+                    'shortcode' => '[configuration data="footer_column_2"]'
+                ]
+            );
+            add_settings_field( //Rodapé
+                $id = 'jcmartim_configuration_data_footer_column_3',
+                $title = esc_html__('Column footer 3', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_footer_column_3_callback'],
+                $page = 'jcmartim_configuration_data_page_footer',
+                $section = 'jcmartim_configuration_data_footer',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_footer_column_3',
+                    'shortcode' => '[configuration data="footer_column_3"]'
+                ]
+            );
+            add_settings_field( //Rodapé
+                $id = 'jcmartim_configuration_data_footer_column_4',
+                $title = esc_html__('Column footer 4', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_footer_column_4_callback'],
+                $page = 'jcmartim_configuration_data_page_footer',
+                $section = 'jcmartim_configuration_data_footer',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_footer_column_4',
+                    'shortcode' => '[configuration data="footer_column_4"]'
+                ]
+            );
         }
         //Texto ecplicativo da premeira seção.
         public function jcmartim_configuration_data_business_explanation()
@@ -203,6 +260,12 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
         {
             ?>
             <p style="max-width: 600px;"><?php esc_html_e('Enter here with some external settings like links and service keys.', 'jcmartim-configuration-data') ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_footer_calback()
+        {
+            ?>
+            <p style="max-width: 600px;"><?php esc_html_e('Enter the site footer content separated by columns.', 'jcmartim-configuration-data') ?></p>
             <?php
         }
         /**
@@ -390,6 +453,65 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             <p><?php esc_html_e("Paste the Google Analytics ID. E.g.: G-XX3ZCML7LK", "jcmartim-configuration-data") ?></p>
             <?php
         }
+        /**
+         * Quarta Seção
+         */
+        public function jcmartim_configuration_data_footer_column_1_callback($args)
+        {
+            ?>
+            <textarea 
+                name="jcmartim_configuration_data_options_4[jcmartim_configuration_data_footer_column_1]"
+                id="jcmartim_configuration_data_footer_column_1" 
+                cols="50" 
+                rows="8"
+            ><?php echo isset(self::$options_4['jcmartim_configuration_data_footer_column_1']) ? 
+            esc_html__(self::$options_4['jcmartim_configuration_data_footer_column_1'], 'jcmartim-configuration-data') : '' ?></textarea>
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Column 1 Contents.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_footer_column_2_callback($args)
+        {
+            ?>
+            <textarea 
+                name="jcmartim_configuration_data_options_4[jcmartim_configuration_data_footer_column_2]"
+                id="jcmartim_configuration_data_footer_column_2" 
+                cols="50" 
+                rows="8"
+            ><?php echo isset(self::$options_4['jcmartim_configuration_data_footer_column_2']) ? 
+            esc_html__(self::$options_4['jcmartim_configuration_data_footer_column_2'], 'jcmartim-configuration-data') : '' ?></textarea>
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Column 2 Contents.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_footer_column_3_callback($args)
+        {
+            ?>
+            <textarea 
+                name="jcmartim_configuration_data_options_4[jcmartim_configuration_data_footer_column_3]"
+                id="jcmartim_configuration_data_footer_column_3" 
+                cols="50" 
+                rows="8"
+            ><?php echo isset(self::$options_4['jcmartim_configuration_data_footer_column_3']) ? 
+            esc_html__(self::$options_4['jcmartim_configuration_data_footer_column_3'], 'jcmartim-configuration-data') : '' ?></textarea>
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Column 3 Contents.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_footer_column_4_callback($args)
+        {
+            ?>
+            <textarea 
+                name="jcmartim_configuration_data_options_4[jcmartim_configuration_data_footer_column_4]"
+                id="jcmartim_configuration_data_footer_column_4" 
+                cols="50" 
+                rows="8"
+            ><?php echo isset(self::$options_4['jcmartim_configuration_data_footer_column_4']) ? 
+            esc_html__(self::$options_4['jcmartim_configuration_data_footer_column_4'], 'jcmartim-configuration-data') : '' ?></textarea>
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Column 4 Contents.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
 
         /**
          * Método para satatização dos campos.
@@ -502,5 +624,6 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             }
             return $field_sanitize;
         }
+
     }
 }

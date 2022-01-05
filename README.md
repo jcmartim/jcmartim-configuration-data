@@ -1,6 +1,6 @@
 == Description ==
 
-This plugin helps in configuring business data such as: company, address, contact numbers and social networks that go mainly in the footer and header of the website. This plugin creates a WordPress administration page where you can fill in your business data to place anywhere on the site via shortcodes.
+This plugin helps in configuring business data such as: company, address, contact numbers and social networks that go mainly in the footer and header of the website. It also configures external services like Google Analytics, Facebook Pixel, etc. This plugin creates a WordPress administration page where you can fill in your data and edit it to place anywhere on the site via shortcodes.
 
 == Installation ==
 
@@ -8,7 +8,7 @@ FAST INSTALLATION
 The plugin can be installed and activated by looking for the plugin via WordPress admin → Plugins → Add new.
 
 INSTALLING VIA FTP
-Alternatively, you can download plugin to your computer from the WordPress plugins directory or via GitHub at https://github.com/jcmartim/jcmartim-configuration-data or aida via the plugin website https: //www.jcmartim.site/plaugins/jcmartim-configuration-data.
+Alternatively, you can download plugin to your computer from the WordPress plugins directory or via GitHub at https://github.com/jcmartim/jcmartim-configuration-data or aida via the plugin website https: //www.jcmartim.site/plug-ins/jcmartim-configuration-data.
 Then locate the jcmartim-configuration-data.zip file on your computer and unzip it.
 Log into your WordPress server's root folder via an SFTP or FTP client and navigate to the WordPress plugins directory: wp-content/plugins.
 Now upload the folder with all jcmartim-configuration-data plugin files to the WordPress plugins directory.
@@ -28,7 +28,7 @@ Does this plugin make the information available in the form of widgets?
 Not at the moment, but possibly in the near future, we can assess this possibility.
 
 Is it possible to include the information directly in the PHP code?
-Yes, with the do_shortcode() function: Ex .: <? Php echo do_shortcode('[configuration data='company']'); ?>
+Yes, with the do_shortcode() function: Ex .: <?php echo do_shortcode('[configuration data='company']'); ?>
 
 == Screenshots ==
 
