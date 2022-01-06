@@ -19,6 +19,7 @@ if ( ! class_exists( 'JCMartim_Configuration_Data_Shortcode' ) ) {
             $data_social_media  =    get_option('jcmartim_configuration_data_options_2');
             $data_external      =    get_option('jcmartim_configuration_data_options_3');
             $data_footer        =    get_option('jcmartim_configuration_data_options_4');
+            $data_contacts        =    get_option('jcmartim_configuration_data_options_5');
 
             //Passa todos os parametros para minúsculas.
             $atts = array_change_key_case((array) $atts, CASE_LOWER);
@@ -39,16 +40,18 @@ if ( ! class_exists( 'JCMartim_Configuration_Data_Shortcode' ) ) {
                 return $data_business['jcmartim_configuration_data_cnpj'];
             } elseif ( ! empty( $data ) && $data === 'address' ) {
                 return $data_business['jcmartim_configuration_data_address'];
-            } elseif ( ! empty( $data ) && $data === 'tel' ) {
-                return $data_business['jcmartim_configuration_data_tel'];
-            } elseif ( ! empty( $data ) && $data === 'whatsapp' ) {
-                return $data_business['jcmartim_configuration_data_whatsapp'];
             } elseif ( ! empty( $data ) && $data === 'facebook' ) {
                 return $data_social_media['jcmartim_configuration_data_facebook'];
             } elseif ( ! empty( $data ) && $data === 'instagram' ) {
                 return $data_social_media['jcmartim_configuration_data_instagram'];
             } elseif ( ! empty( $data ) && $data === 'twitter' ) {
                 return $data_social_media['jcmartim_configuration_data_twitter'];
+            } elseif ( ! empty( $data ) && $data === 'linkedin' ) {
+                return $data_social_media['jcmartim_configuration_data_linkedin'];
+            } elseif ( ! empty( $data ) && $data === 'pinterest' ) {
+                return $data_social_media['jcmartim_configuration_data_pinterest'];
+            } elseif ( ! empty( $data ) && $data === 'youtube' ) {
+                return $data_social_media['jcmartim_configuration_data_youtube'];
             } elseif ( ! empty( $data ) && $data === 'external-page-link' ) {
                 return $data_external['jcmartim_configuration_data_external_link'];
             } elseif ( ! empty( $data ) && $data === 'pixel' ) {
@@ -63,6 +66,16 @@ if ( ! class_exists( 'JCMartim_Configuration_Data_Shortcode' ) ) {
                 return $data_footer['jcmartim_configuration_data_footer_column_3'];
             } elseif ( ! empty( $data ) && $data === 'footer_column_4' ) {
                 return $data_footer['jcmartim_configuration_data_footer_column_4'];
+            } elseif ( ! empty( $data ) && $data === 'tel' ) {
+                return $data_contacts['jcmartim_configuration_data_tel'];
+            } elseif ( ! empty( $data ) && $data === 'whatsapp' ) {
+                return $data_contacts['jcmartim_configuration_data_whatsapp'];
+            } elseif ( ! empty( $data ) && $data === 'telegram' ) {
+                return $data_contacts['jcmartim_configuration_data_telegram'];
+            } elseif ( ! empty( $data ) && $data === 'skype' ) {
+                return $data_contacts['jcmartim_configuration_data_skype'];
+            } elseif ( ! empty( $data ) && $data === 'email' ) {
+                return $data_contacts['jcmartim_configuration_data_email'];
             }
         }
     }

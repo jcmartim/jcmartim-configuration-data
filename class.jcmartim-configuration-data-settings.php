@@ -7,6 +7,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
         public static $options_2 = [];
         public static $options_3 = [];
         public static $options_4 = [];
+        public static $options_5 = [];
 
         public function __construct()
         {
@@ -15,6 +16,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             self::$options_2 = get_option('jcmartim_configuration_data_options_2');
             self::$options_3 = get_option('jcmartim_configuration_data_options_3');
             self::$options_4 = get_option('jcmartim_configuration_data_options_4');
+            self::$options_5 = get_option('jcmartim_configuration_data_options_5');
             add_action( 'admin_init', [$this, 'jcmartim_configuration_data_admin_init'] );
         }
 
@@ -45,6 +47,12 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 $option_group = 'jcmartim_configuration_data_group_4',                // Grupo ( usado em settings_field na page view )
                 $option_name = 'jcmartim_configuration_data_options_4',               // Nome da chave (mesma da "get_option acima").           
                 $args = [$this, 'jcmartim_configuration_data_options_sinitize_4'],    // Callback para fazer as devidas validações dos campos.
+            );
+
+            register_setting( //Registra a chave que deve guardar todas as informações no banco de dados.
+                $option_group = 'jcmartim_configuration_data_group_5',                // Grupo ( usado em settings_field na page view )
+                $option_name = 'jcmartim_configuration_data_options_5',               // Nome da chave (mesma da "get_option acima").           
+                $args = [$this, 'jcmartim_configuration_data_options_sinitize_5'],    // Callback para fazer as devidas validações dos campos.
             );
 
             /**
@@ -78,19 +86,26 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 $callback = [$this, 'jcmartim_configuration_data_footer_calback'],
                 $page = 'jcmartim_configuration_data_page_footer'
             );
+            //Quinta Seção
+            add_settings_section(
+                $id = 'jcmartim_configuration_data_contacts',
+                $title = esc_html__( 'Contacts data', 'jcmartim-configuration-data' ),
+                $callback = [$this, 'jcmartim_configuration_data_contacts_calback'],
+                $page = 'jcmartim_configuration_data_page_contacts'
+            );
             /**
              * Campos
              */
             //Campos da primeira página
             add_settings_field( //Campo nome da empresa
-                $id = 'jcmartim_configuration_data_company_name',
-                $title = esc_html__('Company Name', 'jcmartim-configuration-data'),
-                $callback = [$this, 'jcmartim_configuration_data_company_name_callback'],
+                $id = 'jcmartim_configuration_data_mycompany_name',
+                $title = esc_html__('myCompany Name', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_mycompany_name_callback'],
                 $page = 'jcmartim_configuration_data_page_business',
                 $section = 'jcmartim_configuration_data_business',
                 $args = [
-                    'label_for' => 'jcmartim_configuration_data_company_name',
-                    'shortcode' => '[configuration data="company"]'
+                    'label_for' => 'jcmartim_configuration_data_mycompany_name',
+                    'shortcode' => '[configuration data="mycompany"]'
                 ]
             );
             add_settings_field( //Campo CNPJ
@@ -113,28 +128,6 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 $args = [
                     'label_for' => 'jcmartim_configuration_data_address',
                     'shortcode' => '[configuration data="address"]'
-                ]
-            );
-            add_settings_field( //Campo Telefone
-                $id = 'jcmartim_configuration_data_tel',
-                $title = esc_html__('Telephone', 'jcmartim-configuration-data'),
-                $callback = [$this, 'jcmartim_configuration_data_tel_callback'],
-                $page = 'jcmartim_configuration_data_page_business',
-                $section = 'jcmartim_configuration_data_business',
-                $args = [
-                    'label_for' => 'jcmartim_configuration_data_tel',
-                    'shortcode' => '[configuration data="tel"]'
-                ]
-            );
-            add_settings_field( //Campo WhatApp
-                $id = 'jcmartim_configuration_data_whatsapp',
-                $title = esc_html__('WhatsApp Number', 'jcmartim-configuration-data'),
-                $callback = [$this, 'jcmartim_configuration_data_whatsapp_callback'],
-                $page = 'jcmartim_configuration_data_page_business',
-                $section = 'jcmartim_configuration_data_business',
-                $args = [
-                    'label_for' => 'jcmartim_configuration_data_whatsapp',
-                    'shortcode' => '[configuration data="whatsapp"]'
                 ]
             );
             //Campos da segunda página
@@ -171,6 +164,40 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                     'shortcode' => '[configuration data="twitter"]'
                 ]
             );
+            add_settings_field( //Linkedin
+                $id = 'jcmartim_configuration_data_linkedin',
+                $title = esc_html__('Linkedin link', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_linkedin_callback'],
+                $page = 'jcmartim_configuration_data_page_social_media',
+                $section = 'jcmartim_configuration_data_social_media',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_linkedin',
+                    'shortcode' => '[configuration data="linkedin"]'
+                ]
+            );
+            add_settings_field( //Pinterest
+                $id = 'jcmartim_configuration_data_pinterest',
+                $title = esc_html__('Pinterest link', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_pinterest_callback'],
+                $page = 'jcmartim_configuration_data_page_social_media',
+                $section = 'jcmartim_configuration_data_social_media',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_pinterest',
+                    'shortcode' => '[configuration data="pinterest"]'
+                ]
+            );
+            add_settings_field( //Youtube
+                $id = 'jcmartim_configuration_data_youtube',
+                $title = esc_html__('Youtube link', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_youtube_callback'],
+                $page = 'jcmartim_configuration_data_page_social_media',
+                $section = 'jcmartim_configuration_data_social_media',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_youtube',
+                    'shortcode' => '[configuration data="youtube"]'
+                ]
+            );
+            //Campos da terceira página
             add_settings_field( //Link externo para outro site
                 $id = 'jcmartim_configuration_data_external_link',
                 $title = esc_html__('Link to the page of an external service', 'jcmartim-configuration-data'),
@@ -204,6 +231,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                     'shortcode' => '[configuration data="analytics"]'
                 ]
             );
+            //Campos da quarta página
             add_settings_field( //Rodapé
                 $id = 'jcmartim_configuration_data_footer_column_1',
                 $title = esc_html__('Column footer 1', 'jcmartim-configuration-data'),
@@ -248,6 +276,62 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                     'shortcode' => '[configuration data="footer_column_4"]'
                 ]
             );
+            //Campos da quinta página
+            add_settings_field( //Campo Telefone
+                $id = 'jcmartim_configuration_data_tel',
+                $title = esc_html__('Telephone', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_tel_callback'],
+                $page = 'jcmartim_configuration_data_page_contacts',
+                $section = 'jcmartim_configuration_data_contacts',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_tel',
+                    'shortcode' => '[configuration data="tel"]'
+                ]
+            );
+            add_settings_field( //Campo WhatApp
+                $id = 'jcmartim_configuration_data_whatsapp',
+                $title = esc_html__('WhatsApp Number', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_whatsapp_callback'],
+                $page = 'jcmartim_configuration_data_page_contacts',
+                $section = 'jcmartim_configuration_data_contacts',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_whatsapp',
+                    'shortcode' => '[configuration data="whatsapp"]'
+                ]
+            );
+            add_settings_field( //Campo Telegram
+                $id = 'jcmartim_configuration_data_telegram',
+                $title = esc_html__('Telegram link', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_telegram_callback'],
+                $page = 'jcmartim_configuration_data_page_contacts',
+                $section = 'jcmartim_configuration_data_contacts',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_telegram',
+                    'shortcode' => '[configuration data="telegram"]'
+                ]
+            );
+            add_settings_field( //Campo Skype
+                $id = 'jcmartim_configuration_data_skype',
+                $title = esc_html__('Skype link', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_skype_callback'],
+                $page = 'jcmartim_configuration_data_page_contacts',
+                $section = 'jcmartim_configuration_data_contacts',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_skype',
+                    'shortcode' => '[configuration data="skype"]'
+                ]
+            );
+            add_settings_field( //Campo e-mail
+                $id = 'jcmartim_configuration_data_email',
+                $title = esc_html__('Email address', 'jcmartim-configuration-data'),
+                $callback = [$this, 'jcmartim_configuration_data_email_callback'],
+                $page = 'jcmartim_configuration_data_page_contacts',
+                $section = 'jcmartim_configuration_data_contacts',
+                $args = [
+                    'label_for' => 'jcmartim_configuration_data_email',
+                    'shortcode' => '[configuration data="email"]'
+                ]
+            );
         }
         //Texto ecplicativo da premeira seção.
         public function jcmartim_configuration_data_business_explanation()
@@ -268,22 +352,26 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             <p style="max-width: 600px;"><?php esc_html_e('Enter the site footer content separated by columns.', 'jcmartim-configuration-data') ?></p>
             <?php
         }
+        public function jcmartim_configuration_data_contacts_calback()
+        {
+            ?>
+            <p style="max-width: 600px;"><?php esc_html_e('Enter your contact details.', 'jcmartim-configuration-data') ?></p>
+            <?php
+        }
         /**
          * Conteúdo dos campos.
          * PRIMEIRA SEÇÃO
          */
         //Nome da Empresa
-        public function jcmartim_configuration_data_company_name_callback( $args )
+        public function jcmartim_configuration_data_mycompany_name_callback( $args )
         {
             ?>
             <input
                 type="text"
-                placeholder="<?php esc_html_e('Company / business name', 'jcmartim-configuration-data'); ?>"
-                name="jcmartim_configuration_data_options_1[jcmartim_configuration_data_company_name]" 
-                id="jcmartim_configuration_data_company_name"
-                value="<?php echo isset(self::$options_1['jcmartim_configuration_data_company_name']) ? esc_html__(self::$options_1['jcmartim_configuration_data_company_name'], 'jcmartim-configuration-data') : '' ?>""
-                <?php echo  empty(self::$options_1['jcmartim_configuration_data_company_name']) ? 'style="border-color:red"' : 'style="border-color:green"'; ?>
-            />
+                placeholder="<?php esc_html_e('myCompany / business name', 'jcmartim-configuration-data'); ?>"
+                name="jcmartim_configuration_data_options_1[jcmartim_configuration_data_mycompany_name]" 
+                id="jcmartim_configuration_data_mycompany_name"
+                value="<?php echo isset(self::$options_1['jcmartim_configuration_data_mycompany_name']) ? esc_html__(self::$options_1['jcmartim_configuration_data_mycompany_name'], 'jcmartim-configuration-data') : '' ?>""            />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e('Short code in the business name for insertion into the website content.', 'jcmartim-configuration-data') ?></p>
             <?php
@@ -297,9 +385,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 name="jcmartim_configuration_data_options_1[jcmartim_configuration_data_cnpj]" 
                 placeholder="<?php esc_html_e('00.000.000/0000-00', 'jcmartim-configuration-data') ?>"
                 id="jcmartim_configuration_data_cnpj"
-                value="<?php echo isset(self::$options_1['jcmartim_configuration_data_cnpj']) ? esc_html__(self::$options_1['jcmartim_configuration_data_cnpj'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_1['jcmartim_configuration_data_cnpj']) ? '"' : 'style="border-color:green"'; ?>
-            />
+                value="<?php echo isset(self::$options_1['jcmartim_configuration_data_cnpj']) ? esc_html__(self::$options_1['jcmartim_configuration_data_cnpj'], 'jcmartim-configuration-data') : '' ?>"            />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("CNPJ shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
             <?php
@@ -314,42 +400,9 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 id="jcmartim_configuration_data_address" 
                 cols="30" 
                 rows="5"
-                <?php echo  empty(self::$options_1['jcmartim_configuration_data_address']) ? 'style="border-color:red"' : 'style="border-color:green"'; ?>
             ><?php echo isset(self::$options_1['jcmartim_configuration_data_address']) ? esc_html__(self::$options_1['jcmartim_configuration_data_address'], 'jcmartim-configuration-data') : '' ?></textarea>
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Adrees shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
-            <?php
-        }
-        //Telefone da empresa
-        public function jcmartim_configuration_data_tel_callback( $args )
-        {
-            ?>
-            <input
-                type="text"
-                placeholder="<?php esc_html_e('(00) 00000-0000', 'jcmartim-configuration-data'); ?>"
-                name="jcmartim_configuration_data_options_1[jcmartim_configuration_data_tel]" 
-                id="jcmartim_configuration_data_tel"
-                value="<?php echo isset(self::$options_1['jcmartim_configuration_data_tel']) ? esc_html__(self::$options_1['jcmartim_configuration_data_tel'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_1['jcmartim_configuration_data_tel']) ? 'style="border-color:red"' : 'style="border-color:green"'; ?>
-            />
-            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
-            <p><?php esc_html_e("Telephone shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
-            <?php
-        }
-        //Número do WhatsApp
-        public function jcmartim_configuration_data_whatsapp_callback( $args )
-        {
-            ?>
-            <input
-                type="number"
-                placeholder="00000000000"
-                name="jcmartim_configuration_data_options_1[jcmartim_configuration_data_whatsapp]" 
-                id="jcmartim_configuration_data_whatsapp"
-                value="<?php echo isset(self::$options_1['jcmartim_configuration_data_whatsapp']) ? esc_html__(self::$options_1['jcmartim_configuration_data_whatsapp'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_1['jcmartim_configuration_data_whatsapp']) ? 'style="border-color:red"' : 'style="border-color:green"'; ?>
-            />
-            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
-            <p><?php esc_html_e("WhatsApp shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
             <?php
         }
         /**
@@ -362,11 +415,10 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             ?>
             <input
                 type="url"
-                placeholder="https://www.facebook.com/company"
+                placeholder="https://www.facebook.com/mycompany"
                 name="jcmartim_configuration_data_options_2[jcmartim_configuration_data_facebook]" 
                 id="jcmartim_configuration_data_facebook"
                 value="<?php echo isset(self::$options_2['jcmartim_configuration_data_facebook']) ? esc_attr__(self::$options_2['jcmartim_configuration_data_facebook'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_2['jcmartim_configuration_data_facebook']) ? '' : 'style="border-color:green"'; ?>
             />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Facebook page link shortcode for insertion into website content.", "jcmartim-configuration-data") ?></p>
@@ -378,11 +430,10 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             ?>
             <input
                 type="url"
-                placeholder="https://www.instagram.com/company"
+                placeholder="https://www.instagram.com/mycompany"
                 name="jcmartim_configuration_data_options_2[jcmartim_configuration_data_instagram]" 
                 id="jcmartim_configuration_data_instagram"
                 value="<?php echo isset(self::$options_2['jcmartim_configuration_data_instagram']) ? esc_attr__(self::$options_2['jcmartim_configuration_data_instagram'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_2['jcmartim_configuration_data_instagram']) ? '' : 'style="border-color:green"'; ?>
             />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Instagram link shortcode for insertion into website content.", "jcmartim-configuration-data") ?></p>
@@ -394,14 +445,58 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             ?>
             <input
                 type="url"
-                placeholder="https://twitter.com/company"
+                placeholder="https://twitter.com/mycompany"
                 name="jcmartim_configuration_data_options_2[jcmartim_configuration_data_twitter]" 
                 id="jcmartim_configuration_data_twitter"
                 value="<?php echo isset(self::$options_2['jcmartim_configuration_data_twitter']) ? esc_attr__(self::$options_2['jcmartim_configuration_data_twitter'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_2['jcmartim_configuration_data_twitter']) ? '' : 'style="border-color:green"'; ?>
             />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Twitter link shortcode for insertion into website content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        //Linkedin
+        public function jcmartim_configuration_data_linkedin_callback($args)
+        {
+            ?>
+            <input
+                type="url"
+                placeholder="https://www.linkedin.com/in/mycompany"
+                name="jcmartim_configuration_data_options_2[jcmartim_configuration_data_linkedin]" 
+                id="jcmartim_configuration_data_linkedin"
+                value="<?php echo isset(self::$options_2['jcmartim_configuration_data_linkedin']) ? esc_attr__(self::$options_2['jcmartim_configuration_data_linkedin'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Linkedin link shortcode for insertion into website content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        //Pinterest
+        public function jcmartim_configuration_data_pinterest_callback($args)
+        {
+            ?>
+            <input
+                type="url"
+                placeholder="https://br.pinterest.com/mycompany"
+                name="jcmartim_configuration_data_options_2[jcmartim_configuration_data_pinterest]" 
+                id="jcmartim_configuration_data_pinterest"
+                value="<?php echo isset(self::$options_2['jcmartim_configuration_data_pinterest']) ? esc_attr__(self::$options_2['jcmartim_configuration_data_pinterest'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Pinterest link shortcode for insertion into website content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        //Youtube
+        public function jcmartim_configuration_data_youtube_callback($args)
+        {
+            ?>
+            <input
+                type="url"
+                placeholder="https://www.youtube.com/channel/mycompany"
+                name="jcmartim_configuration_data_options_2[jcmartim_configuration_data_youtube]" 
+                id="jcmartim_configuration_data_youtube"
+                value="<?php echo isset(self::$options_2['jcmartim_configuration_data_youtube']) ? esc_attr__(self::$options_2['jcmartim_configuration_data_youtube'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Youtube link shortcode for insertion into website content.", "jcmartim-configuration-data") ?></p>
             <?php
         }
         /**
@@ -417,7 +512,6 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 name="jcmartim_configuration_data_options_3[jcmartim_configuration_data_external_link]" 
                 id="jcmartim_configuration_data_external_link"
                 value="<?php echo isset(self::$options_3['jcmartim_configuration_data_external_link']) ? esc_attr__(self::$options_3['jcmartim_configuration_data_external_link'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_3['jcmartim_configuration_data_external_link']) ? '' : 'style="border-color:green"'; ?>
             />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Enter here with a link to an external page.", "jcmartim-configuration-data") ?></p>
@@ -432,7 +526,6 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 name="jcmartim_configuration_data_options_3[jcmartim_configuration_data_pixel]" 
                 id="jcmartim_configuration_data_pixel"
                 value="<?php echo isset(self::$options_3['jcmartim_configuration_data_pixel']) ? esc_attr__(self::$options_3['jcmartim_configuration_data_pixel'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_3['jcmartim_configuration_data_pixel']) ? '' : 'style="border-color:green"'; ?>
             />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Paste the Facebook Pixel ID. E.g.: 463272213166527", "jcmartim-configuration-data") ?></p>
@@ -447,7 +540,6 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 name="jcmartim_configuration_data_options_3[jcmartim_configuration_data_analytics]" 
                 id="jcmartim_configuration_data_analytics"
                 value="<?php echo isset(self::$options_3['jcmartim_configuration_data_analytics']) ? esc_attr__(self::$options_3['jcmartim_configuration_data_analytics'], 'jcmartim-configuration-data') : '' ?>"
-                <?php echo empty(self::$options_3['jcmartim_configuration_data_analytics']) ? '' : 'style="border-color:green"'; ?>
             />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
             <p><?php esc_html_e("Paste the Google Analytics ID. E.g.: G-XX3ZCML7LK", "jcmartim-configuration-data") ?></p>
@@ -512,6 +604,83 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             <p><?php esc_html_e("Column 4 Contents.", "jcmartim-configuration-data") ?></p>
             <?php
         }
+        /**
+         * Quinta seção
+         */
+        //Telefone da empresa
+        public function jcmartim_configuration_data_tel_callback( $args )
+        {
+            ?>
+            <input
+                type="text"
+                placeholder="<?php esc_html_e('(00) 00000-0000', 'jcmartim-configuration-data'); ?>"
+                name="jcmartim_configuration_data_options_5[jcmartim_configuration_data_tel]" 
+                id="jcmartim_configuration_data_tel"
+                value="<?php echo isset(self::$options_5['jcmartim_configuration_data_tel']) ? esc_html__(self::$options_5['jcmartim_configuration_data_tel'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Telephone shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        //Número do WhatsApp
+        public function jcmartim_configuration_data_whatsapp_callback( $args )
+        {
+            ?>
+            <input
+                type="number"
+                placeholder="00000000000"
+                name="jcmartim_configuration_data_options_5[jcmartim_configuration_data_whatsapp]" 
+                id="jcmartim_configuration_data_whatsapp"
+                value="<?php echo isset(self::$options_5['jcmartim_configuration_data_whatsapp']) ? esc_html__(self::$options_5['jcmartim_configuration_data_whatsapp'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("WhatsApp shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        //Telegram
+        public function jcmartim_configuration_data_telegram_callback($args)
+        {
+            ?>
+            <input
+                type="url"
+                placeholder="https://t.me/mycompany"
+                name="jcmartim_configuration_data_options_5[jcmartim_configuration_data_telegram]" 
+                id="jcmartim_configuration_data_telegram"
+                value="<?php echo isset(self::$options_5['jcmartim_configuration_data_telegram']) ? esc_html__(self::$options_5['jcmartim_configuration_data_telegram'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Telegram shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        //Skype
+        public function jcmartim_configuration_data_skype_callback($args)
+        {
+            ?>
+            <input
+                type="url"
+                placeholder="https://join.skype.com/invite/sGjbM8VYz6vb"
+                name="jcmartim_configuration_data_options_5[jcmartim_configuration_data_skype]" 
+                id="jcmartim_configuration_data_skype"
+                value="<?php echo isset(self::$options_5['jcmartim_configuration_data_skype']) ? esc_html__(self::$options_5['jcmartim_configuration_data_skype'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Skype shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
+        public function jcmartim_configuration_data_email_callback($args)
+        {
+            ?>
+            <input
+                type="email"
+                placeholder="contact@mycompany.com"
+                name="jcmartim_configuration_data_options_5[jcmartim_configuration_data_email]" 
+                id="jcmartim_configuration_data_email"
+                value="<?php echo isset(self::$options_5['jcmartim_configuration_data_email']) ? esc_html__(self::$options_5['jcmartim_configuration_data_email'], 'jcmartim-configuration-data') : '' ?>"
+            />
+            <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
+            <p><?php esc_html_e("Email shortcode for insertion in the website's content.", "jcmartim-configuration-data") ?></p>
+            <?php
+        }
 
         /**
          * Método para satatização dos campos.
@@ -525,12 +694,12 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
 
             foreach ($fields as $key => $value) {
                 switch ($key) {
-                    case 'jcmartim_configuration_data_company_name':
+                    case 'jcmartim_configuration_data_mycompany_name':
                         if( empty( $value ) ) {
                             add_settings_error(
                                 'jcmartim_configuration_data_options_1', // ID da classe de settings.
                                 'jcmartim-configuration-data-message', // Classe a ser adicionada ao html da mensagem.
-                                $message = esc_html__('Please! Fill in the company name field.', 'jcmartim-configuration-data'), // Mensagem de sucesso!
+                                $message = esc_html__('Please! Fill in the mycompany name field.', 'jcmartim-configuration-data'), // Mensagem de sucesso!
                                 'error' // Tipo de mensagem.
                             );
                         } else {
@@ -545,36 +714,13 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                             add_settings_error(
                                 'jcmartim_configuration_data_options_1', // ID da classe de settings.
                                 'jcmartim-configuration-data-message', // Classe a ser adicionada ao html da mensagem.
-                                $message = esc_html__('Please! Fill in the company address field.', 'jcmartim-configuration-data'), // Mensagem de sucesso!
+                                $message = esc_html__('Please! Fill in the mycompany address field.', 'jcmartim-configuration-data'), // Mensagem de sucesso!
                                 'error' // Tipo de mensagem.
                             );
                         } else {
                             $field_sanitize[$key] = sanitize_text_field($value);
                         }
                         break;
-                    case 'jcmartim_configuration_data_tel':
-                        if( empty( $value ) ) {
-                            add_settings_error(
-                                'jcmartim_configuration_data_options_1', // ID da classe de settings.
-                                'jcmartim-configuration-data-message', // Classe a ser adicionada ao html da mensagem.
-                                $message = esc_html__('Please! Fill in the company phone field.', 'jcmartim-configuration-data'), // Mensagem de sucesso!
-                                'error' // Tipo de mensagem.
-                            );
-                        } else {
-                            $field_sanitize[$key] = sanitize_text_field($value);
-                        }
-                        break;
-                    case 'jcmartim_configuration_data_whatsapp':
-                        if( empty( $value ) ) {
-                            add_settings_error(
-                                'jcmartim_configuration_data_options_1', // ID da classe de settings.
-                                'jcmartim-configuration-data-message', // Classe a ser adicionada ao html da mensagem.
-                                $message = esc_html__('Please! Fill in the company WhatsApp number field.', 'jcmartim-configuration-data'), // Mensagem de sucesso!
-                                'error' // Tipo de mensagem.
-                            );
-                        } else {
-                            $field_sanitize[$key] = intval($value);
-                        }
                 }
             }
             return $field_sanitize;
@@ -589,10 +735,19 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                     case 'jcmartim_configuration_data_facebook':
                         $field_sanitize[$key] = esc_url_raw($value);
                         break;
-                    case 'jcmartim_configuration_data_pixel':
+                    case 'jcmartim_configuration_data_instagram':
                         $field_sanitize[$key] = esc_url_raw($value);
                         break;
                     case 'jcmartim_configuration_data_twitter':
+                        $field_sanitize[$key] = esc_url_raw($value);
+                        break;
+                    case 'jcmartim_configuration_data_linkedin':
+                        $field_sanitize[$key] = esc_url_raw($value);
+                        break;
+                    case 'jcmartim_configuration_data_pinterest':
+                        $field_sanitize[$key] = esc_url_raw($value);
+                        break;
+                    case 'jcmartim_configuration_data_youtube':
                         $field_sanitize[$key] = esc_url_raw($value);
                         break;
                     default :
@@ -644,6 +799,34 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                         break;
                     default :
                         $field_sanitize[$key] = sanitize_textarea_field($value);
+                        break;
+                }
+            }
+            return $field_sanitize;
+        }
+        public function jcmartim_configuration_data_options_sinitize_5($fields)
+        {
+            $field_sanitize = [];
+
+            foreach ($fields as $key => $value) {
+                switch ($key) {
+                    case 'jcmartim_configuration_data_tel':
+                        $field_sanitize[$key] = sanitize_text_field($value);
+                        break;
+                    case 'jcmartim_configuration_data_whatsapp':
+                        $field_sanitize[$key] = sanitize_text_field($value);
+                        break;
+                    case 'jcmartim_configuration_data_telegram':
+                        $field_sanitize[$key] = esc_url_raw($value);
+                        break;
+                    case 'jcmartim_configuration_data_skype':
+                        $field_sanitize[$key] = esc_url_raw($value);
+                        break;
+                    case 'jcmartim_configuration_data_email':
+                        $field_sanitize[$key] = sanitize_email($value);
+                        break;
+                    default :
+                        $field_sanitize[$key] = sanitize_text_field($value);
                         break;
                 }
             }
