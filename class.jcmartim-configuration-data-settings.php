@@ -99,7 +99,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
             //Campos da primeira página
             add_settings_field( //Campo nome da empresa
                 $id = 'jcmartim_configuration_data_mycompany_name',
-                $title = esc_html__('myCompany Name', 'jcmartim-configuration-data'),
+                $title = esc_html__('Company Name', 'jcmartim-configuration-data'),
                 $callback = [$this, 'jcmartim_configuration_data_mycompany_name_callback'],
                 $page = 'jcmartim_configuration_data_page_business',
                 $section = 'jcmartim_configuration_data_business',
@@ -373,7 +373,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 id="jcmartim_configuration_data_mycompany_name"
                 value="<?php echo isset(self::$options_1['jcmartim_configuration_data_mycompany_name']) ? esc_html__(self::$options_1['jcmartim_configuration_data_mycompany_name'], 'jcmartim-configuration-data') : '' ?>""            />
             <p class="shortcode"><strong><?php echo $args['shortcode']; ?></strong></p>
-            <p><?php esc_html_e('Short code in the business name for insertion into the website content.', 'jcmartim-configuration-data') ?></p>
+            <p><?php esc_html_e('Shortcode in the business name for insertion into the website content.', 'jcmartim-configuration-data') ?></p>
             <?php
         }
         //CNPJ da Empresa
