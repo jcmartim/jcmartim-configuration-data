@@ -333,7 +333,7 @@ if ( ! class_exists('JCMartim_Configuration_Data_Settings') ) {
                 ]
             );
         }
-        //Texto ecplicativo da premeira seção.
+        //Texto explicativo das seções
         public function jcmartim_configuration_data_business_explanation()
         {
             ?>

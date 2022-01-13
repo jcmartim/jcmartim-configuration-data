@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: JCMartim Configuration Data v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2022-01-06 01:23-0300\n"
+"POT-Creation-Date: 2022-01-13 00:51-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -45,7 +45,7 @@ msgstr "Dados de contato"
 
 #: class.jcmartim-configuration-data-settings.php:102
 msgid "myCompany Name"
-msgstr "Nome da Empresa / Negócio"
+msgstr "minhaEmpresaNome"
 
 #: class.jcmartim-configuration-data-settings.php:113
 msgid "CNPJ"
@@ -73,11 +73,11 @@ msgstr "Link do LinkedIn"
 
 #: class.jcmartim-configuration-data-settings.php:180
 msgid "Pinterest link"
-msgstr "Link do Twitter"
+msgstr "Link do Pinterest"
 
 #: class.jcmartim-configuration-data-settings.php:191
 msgid "Youtube link"
-msgstr "Link do Twitter"
+msgstr "Link do Youtube"
 
 #: class.jcmartim-configuration-data-settings.php:203
 msgid "Link to the page of an external service"
@@ -156,7 +156,7 @@ msgstr "Insira seus dados de contato."
 
 #: class.jcmartim-configuration-data-settings.php:371
 msgid "myCompany / business name"
-msgstr "Nome da empresa / negócio"
+msgstr "minhaEmpresa / nome do Negócio"
 
 #: class.jcmartim-configuration-data-settings.php:376
 msgid "Short code in the business name for insertion into the website content."
@@ -217,19 +217,19 @@ msgstr "Cole o ID do Google Analytics. Ex .: G-XX3ZCML7LK"
 
 #: class.jcmartim-configuration-data-settings.php:562
 msgid "Column 1 Contents."
-msgstr "Conteúdo da coluna 1"
+msgstr "Conteúdo da coluna 1."
 
 #: class.jcmartim-configuration-data-settings.php:576
 msgid "Column 2 Contents."
-msgstr "Conteúdo da coluna 2"
+msgstr "Conteúdo da coluna 2."
 
 #: class.jcmartim-configuration-data-settings.php:590
 msgid "Column 3 Contents."
-msgstr "Conteúdo da coluna 2"
+msgstr "Conteúdo da coluna 2."
 
 #: class.jcmartim-configuration-data-settings.php:604
 msgid "Column 4 Contents."
-msgstr "Conteúdo da coluna 4"
+msgstr "Conteúdo da coluna 4."
 
 #: class.jcmartim-configuration-data-settings.php:616
 msgid "(00) 00000-0000"
